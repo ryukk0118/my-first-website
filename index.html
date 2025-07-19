@@ -1,115 +1,83 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <title>広島マップ with 音楽</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    h1 {
-      background-color: #f44336;
-      color: white;
-      padding: 1em;
-      margin: 0;
-    }
-
-    #map-container {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin: 2em auto;
-    }
-
-    iframe.map {
-      width: 100%;
-      height: 500px;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
-
-    .city-buttons {
-      margin-top: 1em;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .city-buttons button {
-      background-color: #2196f3;
-      color: white;
-      border: none;
-      padding: 0.5em 1em;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background-color 0.3s ease;
-    }
-
-    .city-buttons button:hover {
-      background-color: #0d8ddb;
-    }
-
-    .youtube-box {
-      margin-top: 2em;
-    }
-
-    .youtube-box iframe {
-      width: 100%;
-      max-width: 560px;
-      height: 315px;
-      border-radius: 10px;
-      border: none;
-    }
-
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ひろしま街マップ（OpenStreetMap版）</title>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet/dist/leaflet.css"
+/>
+<style>
+  body, html {
+    margin: 0;
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  #map {
+    width: 100%;
+    height: 100vh;
+  }
+  .info-box {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+    background: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    max-width: 90vw;
+    font-size: 14px;
+    display: none;
+  }
+</style>
 </head>
 <body>
 
-  <h1>広島マップ</h1>
+<div id="map"></div>
+<div class="info-box" id="infoBox"></div>
 
-  <div id="map-container">
-    <iframe
-      class="map"
-      id="map"
-      src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=広島駅"
-      allowfullscreen>
-    </iframe>
-  </div>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // 地図初期化（広島中心）
+  const map = L.map("map").setView([34.3853, 132.4553], 11);
 
-  <div class="city-buttons">
-    <button onclick="changeLocation('広島駅')">広島駅</button>
-    <button onclick="changeLocation('五日市駅')">五日市</button>
-    <button onclick="changeLocation('呉駅')">呉</button>
-    <button onclick="changeLocation('横川駅')">横川</button>
-    <button onclick="changeLocation('西条駅')">西条</button>
-    <button onclick="changeLocation('宮島口駅')">宮島口</button>
-  </div>
+  // OpenStreetMapタイル
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
 
-  <div class="youtube-box">
-    <h2>🎵 音楽を聴く（Perfume - ポリリズム）</h2>
-    <iframe
-      src="https://www.youtube.com/embed/h-7THeZezvI"
-      title="Perfume ポリリズム"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen>
-    </iframe>
-  </div>
+  // 広島の町情報データ
+  const towns = [
+    { name: "五日市", lat: 34.3658, lon: 132.3522, info: "ベッドタウンで静かな住宅地です。" },
+    { name: "横川", lat: 34.4032, lon: 132.4490, info: "おしゃれなカフェと商店街が魅力。" },
+    { name: "海田", lat: 34.3820, lon: 132.4921, info: "落ち着いた住宅街でアクセス良好。" },
+    { name: "呉", lat: 34.2490, lon: 132.5652, info: "海軍の歴史と造船のまちです。" },
+    { name: "大町", lat: 34.3950, lon: 132.4375, info: "静かな住宅地で交通便利。" },
+    { name: "西条", lat: 34.4344, lon: 132.7784, info: "酒蔵の街。秋の酒まつりが有名。" },
+    { name: "三原", lat: 34.3982, lon: 133.0684, info: "空港近く、たこグルメと城跡が名物。" },
+    { name: "尾道", lat: 34.4017, lon: 133.1935, info: "坂道と猫と文学の町。映画のロケ地多数。" },
+    { name: "福山", lat: 34.4943, lon: 133.3629, info: "バラと歴史の街。福山城が有名。" }
+  ];
 
-  <script>
-    function changeLocation(place) {
-      const map = document.getElementById("map");
-      const apiKey = "YOUR_API_KEY"; // 自分のGoogle Maps Embed APIキーに置き換えてください
-      map.src = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(place)}`;
-    }
-  </script>
+  const infoBox = document.getElementById("infoBox");
+
+  towns.forEach(town => {
+    const marker = L.marker([town.lat, town.lon]).addTo(map);
+    marker.on("click", () => {
+      infoBox.style.display = "block";
+      infoBox.innerHTML = `<strong>${town.name}</strong><br>${town.info}`;
+      map.panTo([town.lat, town.lon]);
+    });
+  });
+
+  // infoBoxをクリックで閉じる
+  infoBox.addEventListener("click", () => {
+    infoBox.style.display = "none";
+  });
+</script>
 
 </body>
 </html>
