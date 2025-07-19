@@ -3,48 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>私の最初のWebサイト</title>
+    <title>ひろしま街マップ</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+            background: linear-gradient(#f0f8ff, #e6f7ff);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #c00;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        .map-container {
+            position: relative;
+            max-width: 100%;
+            margin: 1em auto;
+            text-align: center;
+        }
+
+        .map-image {
+            width: 90%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .location-button {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #c00;
+            border-radius: 8px;
+            padding: 0.4em 0.8em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .location-button:hover {
+            background-color: #ffcccc;
+        }
+
+        #info-box {
+            background-color: white;
+            border: 2px solid #c00;
+            padding: 1em;
+            margin: 1em auto;
+            max-width: 90%;
+            border-radius: 10px;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ようこそ！私のWebサイトへ 🎉</h1>
-        
-        <div class="profile">
-            <h2>自己紹介</h2>
-            <p>こんにちは！私は<strong>[ryukk0118]</strong>です。</p>
-            <p>GitHubで初めてWebサイトを作りました！</p>
-        </div>
 
-        <div class="hobby-list">
-            <h3>好きなこと・趣味</h3>
-            <ul>
-                <li>🎮 ゲーム（特に[好きなゲーム名]）</li>
-                <li>📚 読書（[好きなジャンル]が好き）</li>
-                <li>🎵 音楽を聴くこと</li>
-                <li>💻 プログラミング（今日から！）</li>
-            </ul>
-        </div>
+<header>
+    <h1>🌸 ようこそ！ひろしま街マップ 🌸</h1>
+    <p>Perfumeの故郷・広島の魅力を知ろう！</p>
+</header>
 
-        <div class="hobby-list">
-            <h3>これから挑戦したいこと</h3>
-            <ul>
-                <li>かっこいいWebサイトを作る</li>
-                <li>ゲームを作ってみる</li>
-                <li>アプリ開発</li>
-            </ul>
-        </div>
+<div class="map-container">
+    <img src="hiroshima-map-placeholder.jpg" alt="広島マップ" class="map-image">
 
-        <div class="github-link">
-            <p>GitHubで作成: <a href="https://github.com/[あなたのユーザー名]">[あなたのユーザー名]</a></p>
-            <p>作成日: <span id="date"></span></p>
-        </div>
-    </div>
+    <!-- 位置ボタン例 -->
+    <div class="location-button" style="top: 40%; left: 30%;" onclick="showInfo('本通エリア', '本通りは広島のショッピングとグルメの中心地！若者に人気のスポットです。')">本通</div>
+    <div class="location-button" style="top: 60%; left: 45%;" onclick="showInfo('宮島', '世界遺産・厳島神社で有名。潮の満ち引きで鳥居の姿が変わる絶景スポット！')">宮島</div>
+    <div class="location-button" style="top: 50%; left: 60%;" onclick="showInfo('原爆ドーム', '広島平和記念資料館と原爆ドームは、平和の大切さを学べる場所です。')">原爆ドーム</div>
+</div>
 
-    <script>
-        // 今日の日付を表示
-        document.getElementById('date').textContent = new Date().toLocaleDateString('ja-JP');
-    </script>
-<script src="script.js"></script>
+<div id="info-box">
+    <h2 id="info-title"></h2>
+    <p id="info-text"></p>
+</div>
+
+<footer>
+    <p>制作：ryukk0118 | 🎶 BGM: Perfume / ポリリズム（←※イメージ）</p>
+    <p>最終更新日: <span id="date"></span></p>
+</footer>
+
+<script>
+    // 情報表示
+    function showInfo(title, text) {
+        document.getElementById('info-title').textContent = title;
+        document.getElementById('info-text').textContent = text;
+        document.getElementById('info-box').style.display = 'block';
+    }
+
+    // 日付表示
+    document.getElementById('date').textContent = new Date().toLocaleDateString('ja-JP');
+</script>
+
 </body>
 </html>
