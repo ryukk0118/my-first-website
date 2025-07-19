@@ -1,107 +1,113 @@
 <!DOCTYPE html>
+hiroshima-map.jpg
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ひろしま街マップ</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
-            background: linear-gradient(#f0f8ff, #e6f7ff);
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ひろしま街マップ</title>
+  <style>
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+      background: linear-gradient(#f0f8ff, #e6f7ff);
+      margin: 0;
+      padding: 0;
+    }
 
-        header {
-            background-color: #c00;
-            color: white;
-            padding: 1em;
-            text-align: center;
-        }
+    header {
+      background-color: #c00;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
 
-        .map-container {
-            position: relative;
-            max-width: 100%;
-            margin: 1em auto;
-            text-align: center;
-        }
+    .map-container {
+      position: relative;
+      max-width: 100%;
+      margin: 1em auto;
+      text-align: center;
+    }
 
-        .map-image {
-            width: 90%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
+    .map-image {
+      width: 90%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-        .location-button {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid #c00;
-            border-radius: 8px;
-            padding: 0.4em 0.8em;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .location-button {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 1px solid #c00;
+      border-radius: 8px;
+      padding: 0.4em 0.8em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 0.9em;
+    }
 
-        .location-button:hover {
-            background-color: #ffcccc;
-        }
+    .location-button:hover {
+      background-color: #ffcccc;
+    }
 
-        #info-box {
-            background-color: white;
-            border: 2px solid #c00;
-            padding: 1em;
-            margin: 1em auto;
-            max-width: 90%;
-            border-radius: 10px;
-            display: none;
-        }
+    #info-box {
+      background-color: white;
+      border: 2px solid #c00;
+      padding: 1em;
+      margin: 1em auto;
+      max-width: 90%;
+      border-radius: 10px;
+      display: none;
+    }
 
-        footer {
-            text-align: center;
-            padding: 1em;
-            font-size: 0.9em;
-            color: #555;
-        }
-    </style>
+    footer {
+      text-align: center;
+      padding: 1em;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
 
 <header>
-    <h1>🌸 ようこそ！ひろしま街マップ 🌸</h1>
-    <p>Perfumeの故郷・広島の魅力を知ろう！</p>
+  <h1>🌸 ようこそ！ひろしま街マップ 🌸</h1>
+  <p>Perfumeの故郷・広島の魅力を知ろう！</p>
 </header>
 
 <div class="map-container">
-    <img src="hiroshima-map-placeholder.jpg" alt="広島マップ" class="map-image">
+  <img src="hiroshima-map.jpg" alt="広島マップ" class="map-image"/>
 
-    <!-- 位置ボタン例 -->
-    <div class="location-button" style="top: 40%; left: 30%;" onclick="showInfo('本通エリア', '本通りは広島のショッピングとグルメの中心地！若者に人気のスポットです。')">本通</div>
-    <div class="location-button" style="top: 60%; left: 45%;" onclick="showInfo('宮島', '世界遺産・厳島神社で有名。潮の満ち引きで鳥居の姿が変わる絶景スポット！')">宮島</div>
-    <div class="location-button" style="top: 50%; left: 60%;" onclick="showInfo('原爆ドーム', '広島平和記念資料館と原爆ドームは、平和の大切さを学べる場所です。')">原爆ドーム</div>
+  <!-- 地名ボタン（矢印付き） -->
+  <div class="location-button" style="top: 38%; left: 32%;" onclick="showInfo('本通', '広島中心街のショッピングエリア。若者に人気！')">→ 本通</div>
+  <div class="location-button" style="top: 42%; left: 30%;" onclick="showInfo('横川', '昔ながらの商店街と音楽文化が根付く街。')">→ 横川</div>
+  <div class="location-button" style="top: 46%; left: 27%;" onclick="showInfo('五日市', '自然と住宅地が融合した静かな街。')">→ 五日市</div>
+  <div class="location-button" style="top: 52%; left: 38%;" onclick="showInfo('海田', '広島市の東に位置する住宅街エリア。')">→ 海田</div>
+  <div class="location-button" style="top: 60%; left: 55%;" onclick="showInfo('呉', '海軍ゆかりの港町で、戦艦「大和ミュージアム」が有名。')">→ 呉</div>
+  <div class="location-button" style="top: 44%; left: 35%;" onclick="showInfo('大町', '交通の利便性が良く、住宅地として人気。')">→ 大町</div>
+  <div class="location-button" style="top: 40%; left: 60%;" onclick="showInfo('西条', '酒都・西条。酒蔵通りが有名で、秋は酒まつり！')">→ 西条</div>
+  <div class="location-button" style="top: 45%; left: 72%;" onclick="showInfo('三原', 'タコとお城の町。空港アクセスも良好。')">→ 三原</div>
+  <div class="location-button" style="top: 50%; left: 80%;" onclick="showInfo('尾道', '坂の町・文学と猫と映画の聖地。')">→ 尾道</div>
+  <div class="location-button" style="top: 60%; left: 85%;" onclick="showInfo('福山', 'バラの町、福山城や鞆の浦など歴史も豊富。')">→ 福山</div>
 </div>
 
 <div id="info-box">
-    <h2 id="info-title"></h2>
-    <p id="info-text"></p>
+  <h2 id="info-title"></h2>
+  <p id="info-text"></p>
 </div>
 
 <footer>
-    <p>制作：ryukk0118 | 🎶 BGM: Perfume / ポリリズム（←※イメージ）</p>
-    <p>最終更新日: <span id="date"></span></p>
+  <p>制作：ryukk0118 | 🎶 BGM: Perfume / ポリリズム（※雰囲気）</p>
+  <p>最終更新日: <span id="date"></span></p>
 </footer>
 
 <script>
-    // 情報表示
-    function showInfo(title, text) {
-        document.getElementById('info-title').textContent = title;
-        document.getElementById('info-text').textContent = text;
-        document.getElementById('info-box').style.display = 'block';
-    }
+  function showInfo(title, text) {
+    document.getElementById('info-title').textContent = title;
+    document.getElementById('info-text').textContent = text;
+    document.getElementById('info-box').style.display = 'block';
+  }
 
-    // 日付表示
-    document.getElementById('date').textContent = new Date().toLocaleDateString('ja-JP');
+  document.getElementById('date').textContent = new Date().toLocaleDateString('ja-JP');
 </script>
 
 </body>
