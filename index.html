@@ -1,114 +1,115 @@
 <!DOCTYPE html>
-hiroshima-map.jpg
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ひろしま街マップ</title>
+  <title>広島マップ with 音楽</title>
   <style>
     body {
-      font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
-      background: linear-gradient(#f0f8ff, #e6f7ff);
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
       margin: 0;
       padding: 0;
+      text-align: center;
     }
 
-    header {
-      background-color: #c00;
+    h1 {
+      background-color: #f44336;
       color: white;
       padding: 1em;
-      text-align: center;
+      margin: 0;
     }
 
-    .map-container {
+    #map-container {
       position: relative;
-      max-width: 100%;
-      margin: 1em auto;
-      text-align: center;
+      width: 100%;
+      max-width: 800px;
+      margin: 2em auto;
     }
 
-    .map-image {
-      width: 90%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .location-button {
-      position: absolute;
-      background-color: rgba(255, 255, 255, 0.85);
-      border: 1px solid #c00;
-      border-radius: 8px;
-      padding: 0.4em 0.8em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-size: 0.9em;
-    }
-
-    .location-button:hover {
-      background-color: #ffcccc;
-    }
-
-    #info-box {
-      background-color: white;
-      border: 2px solid #c00;
-      padding: 1em;
-      margin: 1em auto;
-      max-width: 90%;
+    iframe.map {
+      width: 100%;
+      height: 500px;
+      border: none;
       border-radius: 10px;
-      display: none;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
     }
 
-    footer {
-      text-align: center;
-      padding: 1em;
-      font-size: 0.9em;
-      color: #555;
+    .city-buttons {
+      margin-top: 1em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
     }
+
+    .city-buttons button {
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+
+    .city-buttons button:hover {
+      background-color: #0d8ddb;
+    }
+
+    .youtube-box {
+      margin-top: 2em;
+    }
+
+    .youtube-box iframe {
+      width: 100%;
+      max-width: 560px;
+      height: 315px;
+      border-radius: 10px;
+      border: none;
+    }
+
   </style>
 </head>
 <body>
 
-<header>
-  <h1>🌸 ようこそ！ひろしま街マップ 🌸</h1>
-  <p>Perfumeの故郷・広島の魅力を知ろう！</p>
-</header>
+  <h1>広島マップ</h1>
 
-<div class="map-container">
-  <img src="hiroshima-map.jpg" alt="広島マップ" class="map-image"/>
+  <div id="map-container">
+    <iframe
+      class="map"
+      id="map"
+      src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=広島駅"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-  <!-- 地名ボタン（矢印付き） -->
-  <div class="location-button" style="top: 38%; left: 32%;" onclick="showInfo('本通', '広島中心街のショッピングエリア。若者に人気！')">→ 本通</div>
-  <div class="location-button" style="top: 42%; left: 30%;" onclick="showInfo('横川', '昔ながらの商店街と音楽文化が根付く街。')">→ 横川</div>
-  <div class="location-button" style="top: 46%; left: 27%;" onclick="showInfo('五日市', '自然と住宅地が融合した静かな街。')">→ 五日市</div>
-  <div class="location-button" style="top: 52%; left: 38%;" onclick="showInfo('海田', '広島市の東に位置する住宅街エリア。')">→ 海田</div>
-  <div class="location-button" style="top: 60%; left: 55%;" onclick="showInfo('呉', '海軍ゆかりの港町で、戦艦「大和ミュージアム」が有名。')">→ 呉</div>
-  <div class="location-button" style="top: 44%; left: 35%;" onclick="showInfo('大町', '交通の利便性が良く、住宅地として人気。')">→ 大町</div>
-  <div class="location-button" style="top: 40%; left: 60%;" onclick="showInfo('西条', '酒都・西条。酒蔵通りが有名で、秋は酒まつり！')">→ 西条</div>
-  <div class="location-button" style="top: 45%; left: 72%;" onclick="showInfo('三原', 'タコとお城の町。空港アクセスも良好。')">→ 三原</div>
-  <div class="location-button" style="top: 50%; left: 80%;" onclick="showInfo('尾道', '坂の町・文学と猫と映画の聖地。')">→ 尾道</div>
-  <div class="location-button" style="top: 60%; left: 85%;" onclick="showInfo('福山', 'バラの町、福山城や鞆の浦など歴史も豊富。')">→ 福山</div>
-</div>
+  <div class="city-buttons">
+    <button onclick="changeLocation('広島駅')">広島駅</button>
+    <button onclick="changeLocation('五日市駅')">五日市</button>
+    <button onclick="changeLocation('呉駅')">呉</button>
+    <button onclick="changeLocation('横川駅')">横川</button>
+    <button onclick="changeLocation('西条駅')">西条</button>
+    <button onclick="changeLocation('宮島口駅')">宮島口</button>
+  </div>
 
-<div id="info-box">
-  <h2 id="info-title"></h2>
-  <p id="info-text"></p>
-</div>
+  <div class="youtube-box">
+    <h2>🎵 音楽を聴く（Perfume - ポリリズム）</h2>
+    <iframe
+      src="https://www.youtube.com/embed/h-7THeZezvI"
+      title="Perfume ポリリズム"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
 
-<footer>
-  <p>制作：ryukk0118 | 🎶 BGM: Perfume / ポリリズム（※雰囲気）</p>
-  <p>最終更新日: <span id="date"></span></p>
-</footer>
-
-<script>
-  function showInfo(title, text) {
-    document.getElementById('info-title').textContent = title;
-    document.getElementById('info-text').textContent = text;
-    document.getElementById('info-box').style.display = 'block';
-  }
-
-  document.getElementById('date').textContent = new Date().toLocaleDateString('ja-JP');
-</script>
+  <script>
+    function changeLocation(place) {
+      const map = document.getElementById("map");
+      const apiKey = "YOUR_API_KEY"; // 自分のGoogle Maps Embed APIキーに置き換えてください
+      map.src = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(place)}`;
+    }
+  </script>
 
 </body>
 </html>
