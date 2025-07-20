@@ -6,105 +6,223 @@
 <title>Perfume Fan Zone 2025</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 <style>
-  body { margin:0; background:#000; color:#00fff7; font-family:'Orbitron',sans-serif; overflow-x:hidden; }
-  header { padding:20px; text-align:center; background: linear-gradient(90deg,#00fff7,#ff00c8); clip-path: polygon(0 0,100% 0,95% 100%,5% 100%); animation:slide 1s;}
-  @keyframes slide {from{transform:translateY(-50px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-  .section { padding:40px 20px; text-align:center; animation:fade 1.5s; }
-  @keyframes fade { from{opacity:0;}to{opacity:1;} }
-  h2 { margin-bottom:1em; }
-  .card { background:rgba(0,255,247,0.1); padding:1rem; border-radius:10px; border:1px solid #00fff7; margin:1rem auto; max-width:600px;}
-  .triangle { width:0;height:0;border-left:25px solid transparent;border-right:25px solid transparent;border-bottom:50px solid #00fff7; margin:1rem auto; animation:spin 4s linear infinite;}
-  @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-  iframe { border:none; width:100%; max-width:560px; height:315px; display:block; margin:1rem auto; }
-  .quiz button { margin:5px; padding:10px 20px; background:transparent; border:2px solid #00fff7; color:#00fff7; cursor:pointer; transition:.3s;}
-  .quiz button:hover { background:#00fff7; color:#000; }
-  .photo-gallery { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:2rem; }
-  .photo-item { position:relative; width:calc(33% - 10px); }
-  .photo-item img { width:100%; border-radius:8px; }
-  .star-rating { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); }
-  .star-rating span { font-size:1.5rem; cursor:pointer; color:rgba(255,215,0,0.4); }
-  .rated { color:rgba(255,215,0,1); }
-  .bgm { position:fixed; bottom:10px; right:10px; width:200px; opacity:.7; }
-  .sns a { margin:0 10px; color:#00fff7; font-size:1.5rem; text-decoration:none; }
-  footer { background:#111; padding:20px; text-align:center; font-size:0.8rem; border-top:1px solid #00fff7; }
-  @media(max-width:600px){ .photo-item{width:calc(50% - 10px);} }
+  body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: #000 url('') repeat;
+    overflow-x: hidden;
+    color: #00fff7;
+    font-size: 1.1rem;
+  }
+  /* 流れ星・星アニメーション */
+  @keyframes starMove {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+    100% { transform: translate(-100vw, 100vh) scale(0.1); opacity: 0; }
+  }
+  .star {
+    position: fixed; width: 2px; height: 2px;
+    background: white; border-radius: 50%;
+    animation: starMove linear infinite;
+  }
+  .star:nth-child(1){ top:10%; left:80%; animation-duration:8s; }
+  .star:nth-child(2){ top:30%; left:60%; animation-duration:12s; animation-delay:2s;}
+  .star:nth-child(3){ top:50%; left:90%; animation-duration:10s; animation-delay:4s;}
+  .star:nth-child(4){ top:70%; left:40%; animation-duration:14s; animation-delay:6s;}
+  .star:nth-child(5){ top:20%; left:20%; animation-duration:9s; animation-delay:3s;}
+
+  header {
+    padding: 30px;
+    text-align: center;
+    background: linear-gradient(90deg,#00fff7,#ff00c8);
+    clip-path: polygon(0 0,100% 0,95% 100%,5% 100%);
+    animation: slide 1s ease-out;
+    font-size: 2.2rem;
+  }
+  @keyframes slide { from{transform:translateY(-60px); opacity:0;} to{transform:translateY(0);opacity:1;} }
+  .section { padding: 50px 20px; text-align:center; animation:fade 1s ease-in;}
+  @keyframes fade { from{opacity:0;} to{opacity:1;} }
+  h2 { margin-bottom: 1.2em; font-size: 1.6rem; }
+  .card {
+    background: rgba(0,255,247,0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #00fff7;
+    margin: 1.5rem auto;
+    max-width: 640px;
+    font-size: 1.2rem;
+  }
+  .triangle {
+    width:0;height:0;
+    border-left:30px solid transparent;
+    border-right:30px solid transparent;
+    border-bottom:60px solid #00fff7;
+    margin:20px auto;
+    animation:spin 4s linear infinite;
+  }
+  @keyframes spin { 0%{transform:rotate(0);} 100%{transform:rotate(360deg);} }
+  iframe {
+    border: none;
+    width: 100%;
+    max-width: 640px;
+    height: 360px;
+    display: block;
+    margin: 1rem auto;
+  }
+  .photo-gallery, .member-gallery {
+    display:flex; flex-wrap:wrap; gap:15px; justify-content:center;
+    margin-top:2rem;
+  }
+  .photo-item, .member-item {
+    position:relative;
+    width: calc(33% - 10px);
+    background: #111;
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .photo-item img, .member-item img {
+    width:100%; display:block;
+  }
+  .star-rating {
+    position:absolute; bottom:8px; left:50%;
+    transform:translateX(-50%); display:flex; gap:4px;
+  }
+  .star-rating span {
+    font-size:1.5rem; cursor:pointer;
+    color:rgba(255,215,0,0.4);
+  }
+  .star-rating .rated { color:rgba(255,215,0,1);}
+  .quiz button {
+    margin:10px; padding:12px 24px;
+    background:transparent; border:2px solid #00fff7;
+    color:#00fff7; font-size:1.1rem; cursor:pointer;
+    transition:.3s;
+  }
+  .quiz button:hover {
+    background:#00fff7; color:#000;
+  }
+  .bgm {
+    position:fixed; bottom:10px; right:10px;
+    width:260px; opacity:.8;
+  }
+  .sns {
+    margin-top:2rem;
+  }
+  .sns a {
+    margin:0 12px;
+    color:#00fff7;
+    font-size:2rem;
+    text-decoration:none;
+  }
+  footer {
+    background:#111;
+    padding:20px;
+    text-align:center;
+    font-size:0.9rem;
+    border-top:1px solid #00fff7;
+    margin-top:50px;
+  }
+  @media(max-width:600px){
+    .photo-item, .member-item { width:calc(50% - 10px); }
+  }
 </style>
 </head>
 <body>
 
-<header><h1>Perfume Fan Zone 2025</h1></header>
+<!-- 流れ星を複数配置 -->
+<div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+
+<header>Perfume Fan Zone 2025</header>
 
 <section class="section">
   <div class="triangle"></div>
   <h2>🎵 最新アルバム情報</h2>
   <div class="card">
-    <p><strong>『ネビュラロマンス 後篇』</strong> が<strong>2025年9月17日発売</strong>決定！</p>
-    <p>8月中に全曲先行配信開始予定です :contentReference[oaicite:2]{index=2}</p>
+    『ネビュラロマンス 後篇』<br>
+    <strong>2025年9月17日発売 決定！</strong><br>
+    8月中に全曲先行配信予定です（公式発表：perfume-web.jp）
   </div>
 </section>
 
 <section class="section">
-  <h2>🎤 東京ドーム公演情報</h2>
+  <h2>🎤 ドーム公演情報</h2>
   <div class="card">
-    <p><strong>Perfume ZO/Z5 Anniversary “ネビュラロマンス” Episode TOKYO DOME</strong></p>
-    <p>2025年9月22日(月)・23日(火・祝) 東京ドームにて開催決定！:contentReference[oaicite:3]{index=3}</p>
+    Perfume ZO/Z5 Anniversary “ネビュラロマンス”<br>
+    <strong>9/22 − 23 東京ドーム</strong><br>
+    公演スケジュール・チケット情報は公式をチェック！
   </div>
 </section>
 
 <section class="section">
   <h2>🆕 新曲「巡ループ」</h2>
   <div class="card">
-    <p>ドラマ「ちはやふる－めぐり－」主題歌。</p>
-    <p>2025年7月9日配信開始！:contentReference[oaicite:4]{index=4}</p>
+    ドラマ『ちはやふる–めぐり–』主題歌<br>
+    <strong>2025年7月9日 配信開始</strong>
   </div>
 </section>
 
 <section class="section">
-  <h2>📸 フォトギャラリー</h2>
+  <h2>👩‍🎤 メンバーギャラリー</h2>
+  <div class="member-gallery">
+    <div class="member-item">
+      <img src="https://via.placeholder.com/300x200?text=あ〜ちゃん" alt="あ〜ちゃん">
+    </div>
+    <div class="member-item">
+      <img src="https://via.placeholder.com/300x200?text=かしゆか" alt="かしゆか">
+    </div>
+    <div class="member-item">
+      <img src="https://via.placeholder.com/300x200?text=のっち" alt="のっち">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>📸 ファンギャラリー</h2>
   <div class="photo-gallery">
-    <div class="photo-item"><img src="https://via.placeholder.com/300x200?text=A" alt="Perfume A">
+    <div class="photo-item"><img src="https://via.placeholder.com/300x200?text=Live+1" alt="">
       <div class="star-rating"><span data-star="1">&#9733;</span><span data-star="2">&#9733;</span><span data-star="3">&#9733;</span><span data-star="4">&#9733;</span><span data-star="5">&#9733;</span></div>
     </div>
-    <div class="photo-item"><img src="https://via.placeholder.com/300x200?text=B" alt="Perfume B">
+    <div class="photo-item"><img src="https://via.placeholder.com/300x200?text=Live+2" alt="">
       <div class="star-rating"><span data-star="1">&#9733;</span><span data-star="2">&#9733;</span><span data-star="3">&#9733;</span><span data-star="4">&#9733;</span><span data-star="5">&#9733;</span></div>
     </div>
-    <div class="photo-item"><img src="https://via.placeholder.com/300x200?text=C" alt="Perfume C">
-      <div class="star-rating"><span data-star="1">&#9733;</span><span data-star="2">&#9733;</span><span data-star="3">&#9733;</span><span data-star="4">&#9733;</span><span data-star="5">&#9733;</span></div>
+    <div class="photo-item"><img src="https://via.placeholder.com/300x200?text=Live+3" alt="">
+      <div class="star-rating"><span data-star="1">&#9733;</span><span data-star="2">&#9733;"></span><span data-star="3">&#9733;"></span><span data-star="4">&#9733;"></span><span data-star="5">&#9733;"></span></div>
     </div>
   </div>
 </section>
 
 <section class="section quiz">
   <h2>🧠 ファンクイズ！</h2>
-  <p>Q. Perfumeの結成年は？</p>
+  <p><strong>Q. Perfumeが結成された年は？</strong></p>
   <button onclick="alert('正解！2001年です！')">A. 2001年</button>
-  <button onclick="alert('ちがいます...')">B. 2003年</button>
-  <button onclick="alert('ちがいます...')">C. 2005年</button>
+  <button onclick="alert('ざんねん…')">B. 2003年</button>
+  <button onclick="alert('ざんねん…')">C. 2005年</button>
 </section>
 
 <section class="section">
-  <h2>🔊 BGM再生</h2>
+  <h2>🔊 BGM 再生中</h2>
   <div class="bgm">
     <iframe src="https://www.youtube.com/embed/_KfIqI_aTxA?autoplay=1&loop=1&playlist=_KfIqI_aTxA&controls=0&mute=0" allow="autoplay; encrypted-media"></iframe>
   </div>
 </section>
 
-<section class="section">
-  <h2>🔗 SNSでフォロー</h2>
-  <div class="sns">
-    <a href="https://www.instagram.com/prfm_official/" target="_blank">Instagram</a>
-    <a href="https://twitter.com/Perfume_Staff" target="_blank">X (旧Twitter)</a>
-  </div>
+<section class="section sns">
+  <h2>🔗 SNS フォロー</h2>
+  <a href="https://www.instagram.com/prfm_official/" target="_blank">Instagram</a>
+  <a href="https://twitter.com/Perfume_Staff" target="_blank">X (旧Twitter)</a>
 </section>
 
-<footer>&copy; 2025 Perfume Fan Zone — 最新公式情報・BGM・SNS連携！</footer>
+<footer>
+  &copy; 2025 Perfume Fan Zone — Info from official site, design by ryukk0118
+</footer>
 
 <script>
-  document.querySelectorAll('.photo-item').forEach(item => {
-    const stars = item.querySelectorAll('span');
+  document.querySelectorAll('.photo-item, .member-item').forEach(item => {
+    const stars = item.querySelectorAll('.star-rating span');
     stars.forEach(s => s.addEventListener('click', () => {
-      const rating = +s.dataset.star;
-      stars.forEach(st => st.classList.toggle('rated', +st.dataset.star <= rating));
+      stars.forEach(st => st.classList.toggle('rated', +st.dataset.star <= +s.dataset.star));
     }));
   });
 </script>
+
+</body>
+</html>
