@@ -2,144 +2,109 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ひろしま街マップ＋プロフィール</title>
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet/dist/leaflet.css"
-/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Perfume Fan Zone 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 <style>
-  body, html {
-    margin: 0;
-    height: 100%;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: linear-gradient(to bottom, #e6f7ff 0%, #f0faff 100%);
-    color: #333;
-  }
-  header {
-    background-color: #c00;
-    color: white;
-    padding: 1em;
-    text-align: center;
-  }
-  #profile {
-    max-width: 600px;
-    margin: 1em auto;
-    background: white;
-    border-radius: 10px;
-    padding: 1em 2em;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  #profile h2 {
-    margin-top: 0;
-    color: #c00;
-  }
-  #map {
-    width: 90%;
-    max-width: 900px;
-    height: 400px;
-    margin: 1em auto;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  }
-  .info-box {
-    max-width: 600px;
-    margin: 0.5em auto 1em auto;
-    background: white;
-    padding: 0.8em 1.2em;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    font-size: 14px;
-    cursor: pointer;
-    display: none;
-  }
-  .youtube-container {
-    max-width: 600px;
-    margin: 2em auto 3em auto;
-    text-align: center;
-  }
-  .youtube-container iframe {
-    width: 100%;
-    height: 315px;
-    border-radius: 10px;
-  }
+  body { margin:0; background:#000; color:#00fff7; font-family:'Orbitron',sans-serif; overflow-x:hidden; }
+  header { padding:20px; text-align:center; background: linear-gradient(90deg,#00fff7,#ff00c8); clip-path: polygon(0 0,100% 0,95% 100%,5% 100%); animation:slide 1s;}
+  @keyframes slide {from{transform:translateY(-50px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .section { padding:40px 20px; text-align:center; animation:fade 1.5s; }
+  @keyframes fade { from{opacity:0;}to{opacity:1;} }
+  h2 { margin-bottom:1em; }
+  .card { background:rgba(0,255,247,0.1); padding:1rem; border-radius:10px; border:1px solid #00fff7; margin:1rem auto; max-width:600px;}
+  .triangle { width:0;height:0;border-left:25px solid transparent;border-right:25px solid transparent;border-bottom:50px solid #00fff7; margin:1rem auto; animation:spin 4s linear infinite;}
+  @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+  iframe { border:none; width:100%; max-width:560px; height:315px; display:block; margin:1rem auto; }
+  .quiz button { margin:5px; padding:10px 20px; background:transparent; border:2px solid #00fff7; color:#00fff7; cursor:pointer; transition:.3s;}
+  .quiz button:hover { background:#00fff7; color:#000; }
+  .photo-gallery { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:2rem; }
+  .photo-item { position:relative; width:calc(33% - 10px); }
+  .photo-item img { width:100%; border-radius:8px; }
+  .star-rating { position:absolute; bottom:8px; left:50%; transform:translateX(-50%); }
+  .star-rating span { font-size:1.5rem; cursor:pointer; color:rgba(255,215,0,0.4); }
+  .rated { color:rgba(255,215,0,1); }
+  .bgm { position:fixed; bottom:10px; right:10px; width:200px; opacity:.7; }
+  .sns a { margin:0 10px; color:#00fff7; font-size:1.5rem; text-decoration:none; }
+  footer { background:#111; padding:20px; text-align:center; font-size:0.8rem; border-top:1px solid #00fff7; }
+  @media(max-width:600px){ .photo-item{width:calc(50% - 10px);} }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>🌸 ようこそ！ひろしま街マップ 🌸</h1>
-  <p>Perfumeの故郷・広島の魅力を知ろう！</p>
-</header>
+<header><h1>Perfume Fan Zone 2025</h1></header>
 
-<section id="profile">
-  <h2>自己紹介</h2>
-  <p>こんにちは！私は <strong>ryukk0118</strong> です。</p>
-  <p>GitHubで初めてWebサイトを作りました！広島の街と音楽が大好きです。</p>
-  <h3>好きなこと・趣味</h3>
-  <ul>
-    <li>🎮 ゲーム（特に好きなゲーム名）</li>
-    <li>📚 読書（好きなジャンルが好き）</li>
-    <li>🎵 音楽を聴くこと</li>
-    <li>💻 プログラミング（今日から！）</li>
-  </ul>
-  <h3>これから挑戦したいこと</h3>
-  <ul>
-    <li>かっこいいWebサイトを作る</li>
-    <li>ゲームを作ってみる</li>
-    <li>アプリ開発</li>
-  </ul>
+<section class="section">
+  <div class="triangle"></div>
+  <h2>🎵 最新アルバム情報</h2>
+  <div class="card">
+    <p><strong>『ネビュラロマンス 後篇』</strong> が<strong>2025年9月17日発売</strong>決定！</p>
+    <p>8月中に全曲先行配信開始予定です :contentReference[oaicite:2]{index=2}</p>
+  </div>
 </section>
 
-<div id="map"></div>
-<div class="info-box" id="infoBox"></div>
+<section class="section">
+  <h2>🎤 東京ドーム公演情報</h2>
+  <div class="card">
+    <p><strong>Perfume ZO/Z5 Anniversary “ネビュラロマンス” Episode TOKYO DOME</strong></p>
+    <p>2025年9月22日(月)・23日(火・祝) 東京ドームにて開催決定！:contentReference[oaicite:3]{index=3}</p>
+  </div>
+</section>
 
-<div class="youtube-container">
-  <h2>🎵 音楽を聴く（Perfume - 巡ループ プレイリスト）</h2>
-  <iframe
-    src="https://www.youtube.com/embed/_KfIqI_aTxA?list=RD_KfIqI_aTxA&start_radio=1&rel=0"
-    title="Perfume 巡ループ プレイリスト"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-</div>
+<section class="section">
+  <h2>🆕 新曲「巡ループ」</h2>
+  <div class="card">
+    <p>ドラマ「ちはやふる－めぐり－」主題歌。</p>
+    <p>2025年7月9日配信開始！:contentReference[oaicite:4]{index=4}</p>
+  </div>
+</section>
 
+<section class="section">
+  <h2>📸 フォトギャラリー</h2>
+  <div class="photo-gallery">
+    <div class="photo-item"><img src="https://via.placeholder.com/300x200?text=A" alt="Perfume A">
+      <div class="star-rating"><span data-star="1">&#9733;</span><span data-star="2">&#9733;</span><span data-star="3">&#9733;</span><span data-star="4">&#9733;</span><span data-star="5">&#9733;</span></div>
+    </div>
+    <div class="photo-item"><img src="https://via.placeholder.com/300x200?text=B" alt="Perfume B">
+      <div class="star-rating"><span data-star="1">&#9733;</span><span data-star="2">&#9733;</span><span data-star="3">&#9733;</span><span data-star="4">&#9733;</span><span data-star="5">&#9733;</span></div>
+    </div>
+    <div class="photo-item"><img src="https://via.placeholder.com/300x200?text=C" alt="Perfume C">
+      <div class="star-rating"><span data-star="1">&#9733;</span><span data-star="2">&#9733;</span><span data-star="3">&#9733;</span><span data-star="4">&#9733;</span><span data-star="5">&#9733;</span></div>
+    </div>
+  </div>
+</section>
 
+<section class="section quiz">
+  <h2>🧠 ファンクイズ！</h2>
+  <p>Q. Perfumeの結成年は？</p>
+  <button onclick="alert('正解！2001年です！')">A. 2001年</button>
+  <button onclick="alert('ちがいます...')">B. 2003年</button>
+  <button onclick="alert('ちがいます...')">C. 2005年</button>
+</section>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<section class="section">
+  <h2>🔊 BGM再生</h2>
+  <div class="bgm">
+    <iframe src="https://www.youtube.com/embed/_KfIqI_aTxA?autoplay=1&loop=1&playlist=_KfIqI_aTxA&controls=0&mute=0" allow="autoplay; encrypted-media"></iframe>
+  </div>
+</section>
+
+<section class="section">
+  <h2>🔗 SNSでフォロー</h2>
+  <div class="sns">
+    <a href="https://www.instagram.com/prfm_official/" target="_blank">Instagram</a>
+    <a href="https://twitter.com/Perfume_Staff" target="_blank">X (旧Twitter)</a>
+  </div>
+</section>
+
+<footer>&copy; 2025 Perfume Fan Zone — 最新公式情報・BGM・SNS連携！</footer>
+
 <script>
-  const map = L.map("map").setView([34.3853, 132.4553], 11);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 18,
-    attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-
-  const towns = [
-    { name: "五日市", lat: 34.3658, lon: 132.3522, info: "ベッドタウンで静かな住宅地です。" },
-    { name: "横川", lat: 34.4032, lon: 132.4490, info: "おしゃれなカフェと商店街が魅力。" },
-    { name: "海田", lat: 34.3820, lon: 132.4921, info: "落ち着いた住宅街でアクセス良好。" },
-    { name: "呉", lat: 34.2490, lon: 132.5652, info: "海軍の歴史と造船のまちです。" },
-    { name: "大町", lat: 34.3950, lon: 132.4375, info: "静かな住宅地で交通便利。" },
-    { name: "西条", lat: 34.4344, lon: 132.7784, info: "酒蔵の街。秋の酒まつりが有名。" },
-    { name: "三原", lat: 34.3982, lon: 133.0684, info: "空港近く、たこグルメと城跡が名物。" },
-    { name: "尾道", lat: 34.4017, lon: 133.1935, info: "坂道と猫と文学の町。映画のロケ地多数。" },
-    { name: "福山", lat: 34.4943, lon: 133.3629, info: "バラと歴史の街。福山城が有名。" }
-  ];
-
-  const infoBox = document.getElementById("infoBox");
-  towns.forEach(town => {
-    const marker = L.marker([town.lat, town.lon]).addTo(map);
-    marker.on("click", () => {
-      infoBox.style.display = "block";
-      infoBox.innerHTML = `<strong>${town.name}</strong><br>${town.info}`;
-      map.panTo([town.lat, town.lon]);
-    });
-  });
-
-  infoBox.addEventListener("click", () => {
-    infoBox.style.display = "none";
+  document.querySelectorAll('.photo-item').forEach(item => {
+    const stars = item.querySelectorAll('span');
+    stars.forEach(s => s.addEventListener('click', () => {
+      const rating = +s.dataset.star;
+      stars.forEach(st => st.classList.toggle('rated', +st.dataset.star <= rating));
+    }));
   });
 </script>
-
-</body>
-</html>
