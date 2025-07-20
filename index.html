@@ -1,131 +1,55 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>メンズ美容 AI接客チャット（試作）</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f4f8;
-      color: #333;
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-    h1 {
-      text-align: center;
-      color: #004080;
-    }
-    .chat-container {
-      border: 1px solid #ccc;
-      background: white;
-      padding: 1rem;
-      height: 400px;
-      overflow-y: auto;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-    }
-    .chat-message {
-      margin-bottom: 0.75rem;
-    }
-    .chat-message.user {
-      text-align: right;
-      color: #004080;
-    }
-    .chat-message.bot {
-      text-align: left;
-      color: #006600;
-    }
-    select, input[type="text"] {
-      width: 100%;
-      padding: 0.5rem;
-      font-size: 1rem;
-      margin-bottom: 0.75rem;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    button {
-      background-color: #004080;
-      color: white;
-      border: none;
-      padding: 0.75rem;
-      width: 100%;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #003366;
-    }
-  </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>出雲日帰りデートプラン</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
 </head>
 <body>
-  <h1>メンズ美容 AI接客チャット</h1>
+  <header><h1>出雲日帰りデートプラン</h1><p>広島発〜21時帰着</p></header>
 
-  <div>
-    <label for="styleSelect">接客スタイルを選んでください:</label>
-    <select id="styleSelect">
-      <option value="friendly">フレンドリー</option>
-      <option value="professional">プロフェッショナル</option>
-      <option value="polite">丁寧</option>
-    </select>
-  </div>
+  <section id="map-section">
+    <h2>観光マップ</h2>
+    <div id="map"></div>
+  </section>
 
-  <div class="chat-container" id="chatContainer">
-    <div class="chat-message bot">こんにちは！ご質問をどうぞ。</div>
-  </div>
+  <section id="timeline">
+    <h2>スケジュール（停車時間＆所要時間）</h2>
+    <div class="timeline">
+      <!-- Example entry -->
+      <div class="container left">
+        <div class="content"><h3>7:30 出発</h3><p>広島コストコ集合・出発</p></div>
+      </div>
+      <!-- ... add entries following structure ... -->
+      <div class="container right must">
+        <div class="content"><h3>11:15 🔴 稲佐の浜</h3><p>神話の浜で御砂清め・散策（30min）</p></div>
+      </div>
+      <!-- Similarly other events -->
+    </div>
+  </section>
 
-  <input type="text" id="userInput" placeholder="ここに質問を入力してください" />
-  <button id="sendBtn">送信</button>
+  <section id="sns">
+    <h2>SNS映えポイント</h2>
+    <ul>
+      <li>石見銀山のレトロ街並み</li>
+      <li>稲佐の浜の神話ロマンショット</li>
+      <li>出雲大社のうさぎ＆しめ縄</li>
+      <li>島根ワイナリーで乾杯ショット</li>
+      <li>日御碕灯台×朱色神社絶景</li>
+    </ul>
+  </section>
 
-  <script>
-    const chatContainer = document.getElementById('chatContainer');
-    const userInput = document.getElementById('userInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const styleSelect = document.getElementById('styleSelect');
+  <footer><p>© 2025 出雲日帰りデートプラン</p></footer>
 
-    function appendMessage(text, sender) {
-      const msgDiv = document.createElement('div');
-      msgDiv.classList.add('chat-message', sender);
-      msgDiv.textContent = text;
-      chatContainer.appendChild(msgDiv);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-
-    function getBotResponse(userText, style) {
-      // 簡単な模擬回答（実際はAI APIと連携）
-      const responses = {
-        friendly: `おっしゃる通りですね！「${userText}」について教えますよ。気軽にどんどん聞いてくださいね😊`,
-        professional: `ご質問ありがとうございます。「${userText}」に関して、専門的にお答えいたします。何かご不明点があればお知らせください。`,
-        polite: `お問い合わせいただきありがとうございます。「${userText}」について、丁寧にご説明させていただきます。どうぞご質問くださいませ。`
-      };
-      return responses[style] || responses.friendly;
-    }
-
-    sendBtn.addEventListener('click', () => {
-      const text = userInput.value.trim();
-      if (!text) return;
-      appendMessage(text, 'user');
-
-      const style = styleSelect.value;
-      const botReply = getBotResponse(text, style);
-
-      setTimeout(() => {
-        appendMessage(botReply, 'bot');
-      }, 800);
-
-      userInput.value = '';
-      userInput.focus();
-    });
-
-    // Enterキーでも送信
-    userInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        sendBtn.click();
-      }
-    });
-  </script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
