@@ -1,395 +1,365 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Perfume Fan Zone 2025</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: #000;
-      overflow-x: hidden;
-      color: #00fff7;
-      font-size: 1.1rem;
-      position: relative;
-    }
-    /* 背景：月 */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 10%;
-      right: 10%;
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle at 30% 30%, #fff, #ccc);
-      border-radius: 50%;
-      opacity: 0.3;
-      z-index: 0;
-    }
-    /* 大きな星たち */
-    .star {
-      position: fixed;
-      background: white;
-      border-radius: 50%;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Perfume Fan Cosmic Zone</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+<style>
+  /* Reset */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  body {
+    background: radial-gradient(circle at center, #0c0f26 0%, #000 90%);
+    font-family: 'Orbitron', sans-serif;
+    color: #00fff7;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /* 宇宙の星の粒 */
+  .stars {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent;
+    z-index: 0;
+  }
+  .star-small {
+    position: absolute;
+    background: #0ff;
+    border-radius: 50%;
+    opacity: 0.7;
+    box-shadow:
+      0 0 10px 3px #00fff7,
+      0 0 20px 5px #00ffff;
+    animation: twinkle 3s infinite ease-in-out alternate;
+  }
+
+  /* いくつか星のサイズを用意 */
+  .star-small.size1 { width: 8px; height: 8px; }
+  .star-small.size2 { width: 12px; height: 12px; animation-duration: 4s; }
+  .star-small.size3 { width: 15px; height: 15px; animation-duration: 5s; }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  /* 大きな星 (メインの輝き) */
+  .star-big {
+    position: fixed;
+    border-radius: 50%;
+    background: #0ff;
+    box-shadow:
+      0 0 25px 12px #00fff7,
+      0 0 50px 20px #00ffff;
+    opacity: 0.9;
+    animation: pulse 4s infinite ease-in-out;
+    z-index: 1;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
       opacity: 0.9;
-      box-shadow: 0 0 15px 5px #0ff, 0 0 30px 10px #0ff;
-      animation: starMove linear infinite;
-      z-index: 1;
     }
-    /* 星それぞれのサイズ・位置・アニメーション時間調整 */
-    .star:nth-child(1) {
-      top: 15%;
-      left: 70%;
-      width: 6px;
-      height: 6px;
-      animation-duration: 8s;
+    50% {
+      transform: scale(1.2);
+      opacity: 1;
     }
-    .star:nth-child(2) {
-      top: 35%;
-      left: 50%;
-      width: 8px;
-      height: 8px;
-      animation-duration: 12s;
-      animation-delay: 2s;
-    }
-    .star:nth-child(3) {
-      top: 55%;
-      left: 80%;
-      width: 7px;
-      height: 7px;
-      animation-duration: 10s;
-      animation-delay: 4s;
-    }
-    .star:nth-child(4) {
-      top: 75%;
-      left: 40%;
-      width: 10px;
-      height: 10px;
-      animation-duration: 14s;
-      animation-delay: 6s;
-    }
-    .star:nth-child(5) {
-      top: 25%;
-      left: 20%;
-      width: 9px;
-      height: 9px;
-      animation-duration: 9s;
-      animation-delay: 3s;
-    }
-    /* 流れ星用大きくした要素 */
-    .shooting-star {
-      position: fixed;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, #00fff7, transparent);
-      border-radius: 50%;
-      opacity: 0.8;
-      box-shadow: 0 0 10px 4px #0ff;
-      animation: shootingStarMove linear infinite;
-      z-index: 2;
-      filter: drop-shadow(0 0 10px #0ff);
-    }
-    .shooting-star:nth-child(6) {
-      top: 20%;
-      left: 90%;
-      animation-duration: 4s;
-      animation-delay: 0s;
-    }
-    .shooting-star:nth-child(7) {
-      top: 60%;
-      left: 100%;
-      animation-duration: 5s;
-      animation-delay: 2s;
-    }
-    .shooting-star:nth-child(8) {
-      top: 40%;
-      left: 80%;
-      animation-duration: 6s;
-      animation-delay: 4s;
-    }
+  }
 
-    @keyframes starMove {
-      0% { transform: translate(0,0) scale(1); opacity: 0.9; }
-      100% { transform: translate(-120vw, 120vh) scale(0.6); opacity: 0; }
-    }
-    @keyframes shootingStarMove {
-      0% { transform: translate(0,0) rotate(25deg); opacity: 0.8; }
-      100% { transform: translate(-130vw, 130vh) rotate(25deg); opacity: 0; }
-    }
+  /* 流れ星 */
+  .shooting-star {
+    position: fixed;
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, #00fff7, transparent);
+    border-radius: 50%;
+    opacity: 0.85;
+    box-shadow: 0 0 20px 6px #00fff7;
+    filter: drop-shadow(0 0 10px #0ff);
+    animation: shooting 5s linear infinite;
+    z-index: 2;
+  }
+  /* 複数流れ星にずらしを入れる */
+  .shooting-star:nth-child(1) {
+    top: 20%;
+    left: 110%;
+    animation-delay: 0s;
+  }
+  .shooting-star:nth-child(2) {
+    top: 50%;
+    left: 120%;
+    animation-delay: 3s;
+  }
+  .shooting-star:nth-child(3) {
+    top: 70%;
+    left: 130%;
+    animation-delay: 6s;
+  }
 
-    header {
-      position: relative;
-      z-index: 10;
-      padding: 30px;
-      text-align: center;
-      background: linear-gradient(90deg,#00fff7,#ff00c8);
-      clip-path: polygon(0 0,100% 0,95% 100%,5% 100%);
-      animation: slide 1s ease-out;
-      font-size: 2.2rem;
+  @keyframes shooting {
+    0% {
+      transform: translateX(0) rotate(25deg);
+      opacity: 0.85;
     }
-    @keyframes slide { from{transform:translateY(-60px); opacity:0;} to{transform:translateY(0); opacity:1;} }
-
-    .section {
-      position: relative;
-      z-index: 10;
-      padding: 50px 20px;
-      text-align: center;
-      animation:fade 1s ease-in;
+    100% {
+      transform: translateX(-150vw) rotate(25deg);
+      opacity: 0;
     }
-    @keyframes fade { from{opacity:0;} to{opacity:1;} }
+  }
 
+  header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 50px 20px 30px 20px;
+    background: linear-gradient(90deg, #00fff7, #ff00c8);
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow:
+      0 0 10px #00fff7,
+      0 0 20px #ff00c8;
+    color: #000;
+    user-select: none;
+  }
+
+  main {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px 60px 20px;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border-left: 6px solid #00fff7;
+    padding-left: 15px;
+    text-shadow: 0 0 5px #00fff7;
+  }
+
+  .card {
+    background: rgba(0, 255, 247, 0.15);
+    border: 2px solid #00fff7;
+    border-radius: 15px;
+    padding: 20px 25px;
+    margin-bottom: 40px;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    box-shadow:
+      0 0 30px #00fff7;
+    transition: transform 0.3s ease;
+  }
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 50px #ff00c8;
+  }
+
+  /* メンバーギャラリー */
+  .member-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    flex-wrap: wrap;
+  }
+  .member-gallery img {
+    width: 300px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 0 30px #00fff7;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  .member-gallery img:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 50px #ff00c8;
+  }
+
+  /* クイズ */
+  .quiz {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto 60px auto;
+    box-shadow: 0 0 25px #00fff7;
+    font-size: 1.4rem;
+    color: #00fff7;
+  }
+  .quiz button {
+    margin: 12px 10px 0 0;
+    padding: 12px 25px;
+    background: transparent;
+    border: 2px solid #00fff7;
+    color: #00fff7;
+    font-weight: 700;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  .quiz button:hover {
+    background: #00fff7;
+    color: #000;
+  }
+  .quiz .result {
+    margin-top: 15px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    height: 1.6em;
+    user-select: none;
+  }
+
+  /* BGMプレイヤー */
+  .bgm-container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    width: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 40px #00fff7;
+    z-index: 20;
+  }
+  .bgm-container iframe {
+    width: 100%;
+    height: 80px;
+    border: none;
+  }
+
+  footer {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 25px 10px;
+    color: #00fff7;
+    font-size: 1rem;
+    border-top: 2px solid #00fff7;
+    user-select: none;
+  }
+
+  /* レスポンシブ */
+  @media screen and (max-width: 768px) {
     h2 {
-      margin-bottom: 1.2em;
       font-size: 1.6rem;
     }
-
     .card {
-      background: rgba(0,255,247,0.1);
-      padding: 1.5rem;
-      border-radius: 10px;
-      border: 1px solid #00fff7;
-      margin: 1.5rem auto;
-      max-width: 640px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      padding: 15px 20px;
     }
-
-    .triangle {
-      width:0;
-      height:0;
-      border-left:30px solid transparent;
-      border-right:30px solid transparent;
-      border-bottom:60px solid #00fff7;
-      margin:20px auto;
-      animation:spin 4s linear infinite;
-    }
-    @keyframes spin { 0%{transform:rotate(0);} 100%{transform:rotate(360deg);} }
-
-    iframe {
-      border: none;
-      width: 100%;
-      max-width: 640px;
-      height: 360px;
-      display: block;
-      margin: 1rem auto;
-    }
-
-    .member-gallery {
-      display:flex;
-      flex-wrap:wrap;
-      gap:20px;
-      justify-content:center;
-      margin-top:2rem;
-    }
-    .member-item {
-      width: calc(33% - 20px);
+    .member-gallery img {
+      width: 90vw;
       max-width: 300px;
+      margin-bottom: 30px;
     }
-    .member-item img {
-      width: 100%;
-      border-radius: 8px;
-      display: block;
+    .bgm-container {
+      width: 90vw;
+      bottom: 10px;
+      right: 5%;
     }
+  }
 
-    .photo-gallery {
-      display:flex;
-      flex-wrap:wrap;
-      gap:15px;
-      justify-content:center;
-      margin-top:2rem;
-    }
-    .photo-item {
-      position:relative;
-      width: calc(33% - 10px);
-      background: #111;
-      border-radius:8px;
-      overflow:hidden;
-    }
-    .photo-item img {
-      width:100%;
-      display:block;
-    }
-    .star-rating {
-      position:absolute;
-      bottom:8px;
-      left:50%;
-      transform:translateX(-50%);
-      display:flex;
-      gap:4px;
-    }
-    .star-rating span {
-      font-size:1.5rem;
-      cursor:pointer;
-      color:rgba(255,215,0,0.4);
-    }
-    .star-rating .rated {
-      color:rgba(255,215,0,1);
-    }
-
-    .quiz button {
-      margin:10px;
-      padding:12px 24px;
-      background:transparent;
-      border:2px solid #00fff7;
-      color:#00fff7;
-      font-size:1.1rem;
-      cursor:pointer;
-      transition:.3s;
-    }
-    .quiz button:hover {
-      background:#00fff7;
-      color:#000;
-    }
-
-    .bgm {
-      position:fixed;
-      bottom:10px;
-      right:10px;
-      width:260px;
-      opacity:.8;
-      z-index:10;
-    }
-
-    .sns {
-      margin-top:2rem;
-      z-index: 10;
-      position: relative;
-    }
-    .sns a {
-      margin:0 12px;
-      color:#00fff7;
-      font-size:2rem;
-      text-decoration:none;
-    }
-
-    footer {
-      background:#111;
-      padding:20px;
-      text-align:center;
-      font-size:0.9rem;
-      border-top:1px solid #00fff7;
-      margin-top:50px;
-      position: relative;
-      z-index: 10;
-    }
-
-    @media(max-width:600px){
-      .member-item, .photo-item {
-        width: calc(50% - 15px);
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
 
-  <!-- 大きく目立つ星 -->
-  <div class="star"></div><div class="star"></div><div class="star"></div>
-  <div class="star"></div><div class="star"></div>
+<!-- 星の粒（適当に配置） -->
+<div class="stars" aria-hidden="true">
+  <div class="star-small size1" style="top:10%; left:15%; animation-delay:0s;"></div>
+  <div class="star-small size2" style="top:25%; left:80%; animation-delay:1.5s;"></div>
+  <div class="star-small size1" style="top:50%; left:30%; animation-delay:3s;"></div>
+  <div class="star-small size3" style="top:65%; left:60%; animation-delay:0.7s;"></div>
+  <div class="star-small size2" style="top:80%; left:45%; animation-delay:2.2s;"></div>
+  <div class="star-small size1" style="top:15%; left:65%; animation-delay:1.2s;"></div>
+  <div class="star-small size3" style="top:35%; left:15%; animation-delay:3.5s;"></div>
+  <div class="star-small size2" style="top:70%; left:80%; animation-delay:1.7s;"></div>
+  <div class="star-small size1" style="top:85%; left:20%; animation-delay:2.8s;"></div>
+</div>
 
-  <!-- 大きめ流れ星 -->
-  <div class="shooting-star"></div>
-  <div class="shooting-star"></div>
-  <div class="shooting-star"></div>
+<!-- 大きな星 -->
+<div class="star-big" style="top:20%; left:70%; width:25px; height:25px;"></div>
+<div class="star-big" style="top:50%; left:40%; width:30px; height:30px;"></div>
+<div class="star-big" style="top:75%; left:65%; width:22px; height:22px;"></div>
 
-  <header>Perfume Fan Zone 2025</header>
+<!-- 流れ星 -->
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
 
-  <section class="section">
-    <div class="triangle"></div>
+<header>
+  Perfume Fan Cosmic Zone
+</header>
+
+<main>
+  <section>
     <h2>🎵 最新アルバム情報</h2>
     <div class="card">
-      『ネビュラロマンス 後篇』<br /><strong>2025年9月17日発売 決定！</strong><br />
-      8月中に全曲先行配信予定です（公式発表：perfume-web.jp）
+      『ネビュラロマンス 後篇』<br />
+      <strong>2025年9月17日発売決定！</strong><br />
+      8月中に全曲先行配信予定です（公式サイト情報）
     </div>
   </section>
 
-  <section class="section">
+  <section>
     <h2>🎤 ドーム公演情報</h2>
     <div class="card">
       Perfume ZO/Z5 Anniversary “ネビュラロマンス”<br />
       <strong>9/22 − 23 東京ドーム</strong><br />
-      チケット・詳細は公式サイトで！
+      チケット情報は公式サイトでチェック！
     </div>
   </section>
 
-  <section class="section">
+  <section>
     <h2>🆕 新曲「巡ループ」</h2>
     <div class="card">
-      ドラマ『ちはやふる–めぐり–』主題歌<br /><strong>2025年7月9日 配信開始</strong>
+      ドラマ『ちはやふる–めぐり–』主題歌<br />
+      <strong>2025年7月9日 配信開始</strong>
     </div>
   </section>
 
-  <section class="section">
+  <section>
     <h2>👩‍🎤 メンバーギャラリー</h2>
     <div class="member-gallery">
-      <div class="member-item">
-        <img src="https://via.placeholder.com/400x300?text=%E3%81%82%EF%BD%9E%E3%81%A1%E3%82%83%E3%82%93" alt="あ～ちゃん" />
-      </div>
-      <div class="member-item">
-        <img src="https://via.placeholder.com/400x300?text=%E3%81%8B%E3%81%97%E3%82%86%E3%81%8B" alt="かしゆか" />
-      </div>
-      <div class="member-item">
-        <img src="https://via.placeholder.com/400x300?text=%E3%81%AE%E3%81%A3%E3%81%A1" alt="のっち" />
-      </div>
+      <img src="https://www.perfume-web.jp/images/profile_01.png" alt="あ～ちゃん" />
+      <img src="https://www.perfume-web.jp/images/profile_02.png" alt="かしゆか" />
+      <img src="https://www.perfume-web.jp/images/profile_03.png" alt="のっち" />
     </div>
   </section>
 
-  <section class="section">
-    <h2>📸 ファンギャラリー</h2>
-    <div class="photo-gallery">
-      <div class="photo-item">
-        <img src="https://via.placeholder.com/400x300?text=Live+Moments+1" alt="" />
-        <div class="star-rating">
-          <span data-star="1">&#9733;</span><span data-star="2">&#9733;</span><span data-star="3">&#9733;</span><span data-star="4">&#9733;</span><span data-star="5">&#9733;</span>
-        </div>
-      </div>
-      <div class="photo-item">
-        <img src="https://via.placeholder.com/400x300?text=Live+Moments+2" alt="" />
-        <div class="star-rating">
-          <span data-star="1">&#9733;</span><span data-star="2">&#9733;</span><span data-star="3">&#9733;</span><span data-star="4">&#9733;</span><span data-star="5">&#9733;"></span>
-        </div>
-      </div>
-      <div class="photo-item">
-        <img src="https://via.placeholder.com/400x300?text=Live+Moments+3" alt="" />
-        <div class="star-rating">
-          <span data-star="1">&#9733;</span><span data-star="2">&#9733;</span><span data-star="3">&#9733;</span><span data-star="4">&#9733;"></span><span data-star="5">&#9733;"></span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section quiz">
+  <section class="quiz">
     <h2>🧠 ファンクイズ！</h2>
-    <p><strong>Q. Perfumeが結成された年は？</strong></p>
-    <button onclick="alert('正解！2001年です！')">A. 2001年</button>
-    <button onclick="alert('ざんねん…')">B. 2003年</button>
-    <button onclick="alert('ざんねん…')">C. 2005年</button>
+    <p><strong>Q. Perfumeの代表曲「ポリリズム」は何年にリリースされた？</strong></p>
+    <button onclick="showAnswer('正解は2007年です！')">A. 2005年</button>
+    <button onclick="showAnswer('正解は2007年です！')">B. 2007年</button>
+    <button onclick="showAnswer('残念！違います。')">C. 2010年</button>
+    <div class="result" id="quiz-result"></div>
   </section>
 
-  <section class="section">
-    <h2>🔊 BGM 再生中</h2>
-    <div class="bgm">
-      <iframe src="https://www.youtube.com/embed/_KfIqI_aTxA?autoplay=1&loop=1&playlist=_KfIqI_aTxA&controls=0&mute=0" allow="autoplay; encrypted-media"></iframe>
-    </div>
-  </section>
+</main>
 
-  <section class="section sns">
-    <h2>🔗 SNS フォロー</h2>
-    <a href="https://www.instagram.com/prfm_official/" target="_blank">Instagram</a>
-    <a href="https://twitter.com/Perfume_Staff" target="_blank">X (旧Twitter)</a>
-  </section>
+<div class="bgm-container" aria-label="BGM Player">
+  <iframe src="https://www.youtube.com/embed/_KfIqI_aTxA?autoplay=1&loop=1&playlist=_KfIqI_aTxA&controls=0&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
 
-  <footer>
-    &copy; 2025 Perfume Fan Zone — Info from official site • design by ryukk0118
-  </footer>
+<footer>
+  &copy; 2025 Perfume Fan Cosmic Zone — info from official site • design by ryukk0118
+</footer>
 
-  <script>
-    document.querySelectorAll('.photo-item .star-rating span').forEach(s => {
-      s.addEventListener('click', () => {
-        const stars = s.parentElement.querySelectorAll('span');
-        stars.forEach(st => st.classList.toggle('rated', +st.dataset.star <= +s.dataset.star));
-      });
-    });
-  </script>
+<script>
+  // クイズ答え表示
+  function showAnswer(msg) {
+    document.getElementById('quiz-result').textContent = msg;
+  }
+</script>
+
 </body>
 </html>
